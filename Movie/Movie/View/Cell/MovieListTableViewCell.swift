@@ -41,7 +41,7 @@ class MovieListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        ivFavourite.image = UIImage(systemName: "heart")
+        ivFavourite.image = UIImage(systemName: "heart.fill")
         
     }
 
