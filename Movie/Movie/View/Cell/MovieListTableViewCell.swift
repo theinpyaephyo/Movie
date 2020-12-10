@@ -19,7 +19,7 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var ivFavourite: UIImageView!
     @IBOutlet weak var lblDuration: UILabel!
     
-    var baseUrl = "http://image.tmdb.org/t/p/w185"
+    var baseUrl = "https://image.tmdb.org/t/p/original"
     
     var movieList: NowPlayingVo? {
         didSet {

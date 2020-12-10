@@ -19,9 +19,15 @@ class MainViewController: UIViewController {
     var page = 1
 
     @IBOutlet weak var movieListTableView: UITableView!
+    @IBOutlet weak var scMovieTab: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let selected = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        let normal = [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        scMovieTab.setTitleTextAttributes(normal, for: .normal)
+        scMovieTab.setTitleTextAttributes(selected, for: .selected)
         
         movieListTableView.register(UINib(nibName: MovieListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MovieListTableViewCell.identifier)
         
