@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
     var page = 1
 
     @IBOutlet weak var movieListTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

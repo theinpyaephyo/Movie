@@ -22,6 +22,7 @@ final class UserDataModel {
     func getMovieList(page: Int = 1,
                       success: @escaping ([NowPlayingVo]) -> Void,
                       failure: @escaping (String) -> Void ){
+        
         let parameters: [String:Any] = ["page":page]
         
         NetworkClient.shared.getMovieList(route: "movie/now_playing?api_key=7d56df239f3717c4641ffd5917635441&language=en-US&page=1", httpHeaders: [:], parameters: parameters, success: { (data) in

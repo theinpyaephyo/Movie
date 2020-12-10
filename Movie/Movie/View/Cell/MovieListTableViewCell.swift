@@ -16,23 +16,32 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblMovieTitle: UILabel!
     @IBOutlet weak var imgMoviePoster: UIImageView!
     @IBOutlet weak var lblVoteAverage: UILabel!
+    @IBOutlet weak var ivFavourite: UIImageView!
+    @IBOutlet weak var lblDuration: UILabel!
     
     var baseUrl = "http://image.tmdb.org/t/p/w185"
-    
-    
     
     var movieList: NowPlayingVo? {
         didSet {
             if let movieList = movieList {
-                lblMovieTitle.text = String(describing: movieList.title)
-                imgMoviePoster.sd_setImage(with: URL(string: baseUrl + movieList.posterPath!))
-                lblVoteAverage.text = String(describing: movieList.voteAverage)
+                
+                lblMovieTitle.text = movieList.title ?? ""
+                
+                let imageURL = baseUrl + (movieList.posterPath ?? "")
+                
+                imgMoviePoster.sd_setImage(with: URL(string: imageURL))
+                
+                lblVoteAverage.text = "\(movieList.voteAverage ?? 0)"
+                
+                lblDuration.text = ""
 
             }
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        ivFavourite.image = UIImage(systemName: "heart")
         
     }
 
