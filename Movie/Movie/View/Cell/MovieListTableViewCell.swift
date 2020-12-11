@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import QuartzCore
 
 class MovieListTableViewCell: UITableViewCell {
     
@@ -18,6 +19,12 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblVoteAverage: UILabel!
     @IBOutlet weak var ivFavourite: UIImageView!
     @IBOutlet weak var lblDuration: UILabel!
+    @IBOutlet weak var innerViewVoteAverage: UIView!
+    @IBOutlet weak var outerViewVoteAverage: UIView!
+    @IBOutlet weak var viewGenre1: UIView!
+    @IBOutlet weak var viewGenre2: UIView!
+    @IBOutlet weak var btnBook: UIButton!
+    
     
     var baseUrl = "https://image.tmdb.org/t/p/original"
     
@@ -42,6 +49,32 @@ class MovieListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         ivFavourite.image = UIImage(systemName: "heart.fill")
+        imgMoviePoster.layer.cornerRadius = 30
+        
+        outerViewVoteAverage.layer.cornerRadius = outerViewVoteAverage.frame.width / 2
+        innerViewVoteAverage.layer.cornerRadius = innerViewVoteAverage.frame.width / 2
+        
+        //OuterView Border Colour Change
+        outerViewVoteAverage.layer.borderColor = UIColor.white.cgColor
+        outerViewVoteAverage.layer.borderWidth = 1
+        
+        //Genre View Border Colour Change
+        viewGenre1.layer.borderColor = UIColor.white.cgColor
+        viewGenre1.layer.borderWidth = 1
+        
+        viewGenre2.layer.borderColor = UIColor.white.cgColor
+        viewGenre2.layer.borderWidth = 1
+        
+        //Genre View Corner Radius
+        viewGenre1.layer.cornerRadius = viewGenre1.frame.height / 8
+        viewGenre2.layer.cornerRadius = viewGenre2.frame.height / 8
+        
+        //Button Corner Radius
+        btnBook.layer.cornerRadius = btnBook.frame.height / 8
+        
+        
+        
+        self.selectionStyle = .none
         
     }
 

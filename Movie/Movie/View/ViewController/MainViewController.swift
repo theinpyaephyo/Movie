@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var movieListTableView: UITableView!
     @IBOutlet weak var scMovieTab: UISegmentedControl!
+    @IBOutlet weak var imgProfile: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,12 @@ class MainViewController: UIViewController {
         
         movieListTableView.dataSource = self
         
+        movieListTableView.separatorStyle = .none
         
+        imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
+        
+        
+    
         loadInitialData()
        
     }
