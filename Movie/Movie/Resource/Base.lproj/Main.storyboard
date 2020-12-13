@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vaS-8t-Xkt">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fW-XO-f3S">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
@@ -77,7 +77,7 @@
                                         <color key="selectedSegmentTintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N7c-8P-fbL">
-                                        <rect key="frame" x="0.0" y="162" width="414" height="656"/>
+                                        <rect key="frame" x="0.0" y="138" width="414" height="714"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </tableView>
                                 </subviews>
@@ -85,7 +85,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="N7c-8P-fbL" secondAttribute="trailing" id="0uV-fJ-NcC"/>
                                     <constraint firstAttribute="trailing" secondItem="4fW-XO-f3S" secondAttribute="trailing" id="4QL-QA-9Mg"/>
-                                    <constraint firstItem="N7c-8P-fbL" firstAttribute="top" secondItem="SNj-94-YcM" secondAttribute="bottom" constant="24" id="Qiv-95-ekq"/>
+                                    <constraint firstItem="N7c-8P-fbL" firstAttribute="top" secondItem="SNj-94-YcM" secondAttribute="bottom" id="Qiv-95-ekq"/>
                                     <constraint firstItem="SNj-94-YcM" firstAttribute="top" secondItem="4fW-XO-f3S" secondAttribute="bottom" id="eOa-1X-Kj9"/>
                                     <constraint firstItem="SNj-94-YcM" firstAttribute="centerX" secondItem="vaS-8t-Xkt" secondAttribute="centerX" id="oEP-cc-RPh"/>
                                     <constraint firstAttribute="bottom" secondItem="N7c-8P-fbL" secondAttribute="bottom" id="pN4-Ae-lX2"/>
@@ -98,7 +98,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="vaS-8t-Xkt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GpW-rE-zQM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vaS-8t-Xkt" secondAttribute="bottom" id="Jtq-Uj-zD8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vaS-8t-Xkt" secondAttribute="bottom" constant="-34" id="Jtq-Uj-zD8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vaS-8t-Xkt" secondAttribute="trailing" id="ni4-1d-y2c"/>
                             <constraint firstItem="vaS-8t-Xkt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oA3-k7-GgQ"/>
                         </constraints>

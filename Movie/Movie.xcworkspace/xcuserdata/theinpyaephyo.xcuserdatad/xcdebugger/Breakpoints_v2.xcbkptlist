@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "2A142146-5CBF-4E3D-8E32-F39BC8224FE6"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E25F852-21E0-475B-B474-EF3932ACA9F1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie/View/Cell/MovieListTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "movieList"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "1E25F852-21E0-475B-B474-EF3932ACA9F1 - 22fbb29ab079b042"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie.MovieListTableViewCell.movieList.didset : Swift.Optional&lt;Movie.NowPlayingVo&gt;"
+                  moduleName = "Movie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/theinpyaephyo/Desktop/Movie/Movie/Movie/View/Cell/MovieListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "4329">
+               </Location>
+               <Location
+                  uuid = "1E25F852-21E0-475B-B474-EF3932ACA9F1 - 4b078e6219628eda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.String) -&gt; () in Movie.MovieListTableViewCell.movieList.didset : Swift.Optional&lt;Movie.NowPlayingVo&gt;"
+                  moduleName = "Movie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/theinpyaephyo/Desktop/Movie/Movie/Movie/View/Cell/MovieListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "135">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B0713F78-D595-40D8-AE89-29B6A2E31168"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie/View/Cell/MovieListTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "movieList"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "B0713F78-D595-40D8-AE89-29B6A2E31168 - 22fbb29ab079b042"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie.MovieListTableViewCell.movieList.didset : Swift.Optional&lt;Movie.NowPlayingVo&gt;"
+                  moduleName = "Movie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/theinpyaephyo/Desktop/Movie/Movie/Movie/View/Cell/MovieListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "4000">
+               </Location>
+               <Location
+                  uuid = "B0713F78-D595-40D8-AE89-29B6A2E31168 - 611c07d7bcf5ec2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Int) -&gt; () in Movie.MovieListTableViewCell.movieList.didset : Swift.Optional&lt;Movie.NowPlayingVo&gt;"
+                  moduleName = "Movie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/theinpyaephyo/Desktop/Movie/Movie/Movie/View/Cell/MovieListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "50">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

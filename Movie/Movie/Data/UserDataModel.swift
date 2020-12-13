@@ -44,4 +44,30 @@ final class UserDataModel {
         }
     }
     
+    func getGenre(success: @escaping ([GenreVO]) -> Void,
+                  failure: @escaping (String) -> Void) {
+        
+//        let parameters: [String:Any] = ["api_key":7d56df239f3717c4641ffd5917635441,"language":en-US]
+        let parameters: [String:Any] = [:]
+        
+        NetworkClient.shared.getGenre(route: "genre/movie/list?api_key=7d56df239f3717c4641ffd5917635441&language=en-US", httpheaders: [:], parameters: parameters, success: { (data) in
+            
+            guard let data = data as? JSON else  { return }
+
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            do {
+                let genreLists = try decoder.decode([GenreVO].self, from: Data(data["genres"].rawData()))
+                success(genreLists)
+            } catch let err {
+                print(err.localizedDescription)
+            }
+            
+            
+        }) { (err) in
+            failure(err)
+        }
+    }
+    
 }

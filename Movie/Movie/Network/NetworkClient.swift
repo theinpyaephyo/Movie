@@ -38,5 +38,25 @@ class NetworkClient {
         }
     }
     
+    func getGenre(route: String,
+                  httpheaders: HTTPHeaders,
+                  parameters: Parameters,
+                  success: @escaping (Any) -> Void,
+                  failure: @escaping (String) -> Void) {
+        
+        AF.request(baseUrl + route,method: .get,parameters: parameters,headers: httpheaders).responseJSON { (response) in
+            switch response.result {
+            case .success(let data):
+                let json = JSON(data)
+                success(json)
+                break
+            case .failure(let err):
+                print(err.localizedDescription)
+                break
+            }
+        }
+        
+    }
+    
 }
 

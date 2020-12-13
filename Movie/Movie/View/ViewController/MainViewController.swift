@@ -16,6 +16,9 @@ class MainViewController: UIViewController {
     
     var movieList: [NowPlayingVo] = []
     
+    static var genreList: [GenreVO] = []
+    
+   
     var page = 1
 
     @IBOutlet weak var movieListTableView: UITableView!
@@ -45,17 +48,31 @@ class MainViewController: UIViewController {
     }
     
     func loadInitialData() {
+        
+        
+        
         UserDataModel.shared.getMovieList(success: { (movieLists) in
             self.movieList = movieLists
+            self.genreSearch()
             self.movieListTableView.reloadData()
         }) { (err) in
             print(err)
         }
     }
+    
+    func genreSearch() {
+        UserDataModel.shared.getGenre(success: { (genreLists) in
+            MainViewController.self.genreList = genreLists
+        }) { (err) in
+            print(err)
+        }
+    }
+    
+}
 
    
 
-}
+
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
