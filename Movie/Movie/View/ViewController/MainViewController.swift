@@ -13,7 +13,9 @@ class MainViewController: UIViewController {
     
     static let identifier = "MainViewController"
         
-    private var movieList: [NowPlayingVO] = []
+    private var movieList: [MovieVO] = []
+    
+    let activityIndicator = UIActivityIndicatorView()
     
     private var page = 1
 
@@ -33,6 +35,8 @@ class MainViewController: UIViewController {
         
         movieListTableView.dataSource = self
         
+        movieListTableView.delegate = self
+        
         movieListTableView.separatorStyle = .none
         
         imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
@@ -43,10 +47,10 @@ class MainViewController: UIViewController {
     
     private func loadInitialData() {
         
-        UserDataModel.shared.getMovieList(success: { (movieLists) in
+        UserDataModel.shared.getMovieList(success: {
             
             UserDataModel.shared.getGenre(success: {
-                self.movieList = movieLists
+                self.movieList = UserDataModel.shared.nowPlayingVO.results ?? []
                 self.movieListTableView.reloadData()
             }) { (err) in
                 print(err)
@@ -55,6 +59,33 @@ class MainViewController: UIViewController {
         }) { (err) in
             print(err)
         }
+    }
+    
+    private func loadMoreData(page: Int) {
+        showTableViewBottomIndicator(tableView: movieListTableView)
+        UserDataModel.shared.getMovieList(page: page) {
+            
+            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+            
+            self.movieList.append(contentsOf: UserDataModel.shared.nowPlayingVO.results ?? [])
+            self.movieListTableView.reloadData()
+            
+        } failure: { (err) in
+            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+            print(err)
+        }
+
+    }
+    
+    private func showTableViewBottomIndicator(tableView: UITableView) {
+        activityIndicator.startAnimating()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44)
+        tableView.tableFooterView = activityIndicator
+    }
+
+    private func hideTableViewBottomIndicator(tableView: UITableView) {
+        activityIndicator.stopAnimating()
+        tableView.tableFooterView = UIView()
     }
     
 }
@@ -75,13 +106,26 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
+extension MainViewController: UITableViewDelegate {
+        
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        // check tableview reachs end method
+        if movieListTableView.contentOffset.y >= (movieListTableView.contentSize.height - movieListTableView.frame.size.height) {
+            if page <= (UserDataModel.shared.nowPlayingVO.totalPages ?? 0) {
+                page += 1
+                loadMoreData(page: page)
+            }
+        }
+    }
+    
+}
+
 extension MainViewController: MovieListItemDelegate {
     func onTapFavourite(index: Int, state: Bool) {
         UserDataModel.shared.favouriteStateList[index] = state
         movieListTableView.reloadData()
     }
-    
-    
 }
 
 

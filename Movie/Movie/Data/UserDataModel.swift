@@ -23,26 +23,32 @@ final class UserDataModel {
     
     var favouriteStateList: [Bool] = []
     
+    var nowPlayingVO = NowPlayingVO()
+    
     func getMovieList(page: Int = 1,
-                      success: @escaping ([NowPlayingVO]) -> Void,
+                      success: @escaping () -> Void,
                       failure: @escaping (String) -> Void ){
         
-        let parameters: [String:Any] = ["page":page]
+        let parameters: [String:Any] = [
+            SharedConstants.PARAM_KEY.API_KEY: SharedConstants.PARAM_VALUE.API_KEY_VALUE,
+            SharedConstants.PARAM_KEY.LANGUAGE: SharedConstants.PARAM_VALUE.LANGUAGE_VALUE,
+            SharedConstants.PARAM_KEY.PAGE: page
+        ]
         
-        NetworkClient.shared.getData(route: "movie/now_playing?api_key=7d56df239f3717c4641ffd5917635441&language=en-US&page=1", httpHeaders: [:], parameters: parameters, success: { (data) in
+        NetworkClient.shared.getData(route: SharedConstants.ROUTE.GET_MOVIE_LIST, httpHeaders: [:], parameters: parameters, success: { (data) in
             
             guard let data = data as? JSON else { return }
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let movieLists = try self.decoder.decode([NowPlayingVO].self, from: Data(data["results"].rawData()))
+                self.nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
                 
                 //favourite state list
-                movieLists.forEach { (_) in
+                self.nowPlayingVO.results?.forEach { (_) in
                     self.favouriteStateList.append(false)
                 }
                 
-                success(movieLists)
+                success()
             } catch let err {
                 print(err)
             }
@@ -54,15 +60,46 @@ final class UserDataModel {
         }
     }
     
+
+    func getMovieDetails(movieId: Int,
+                         success: @escaping () -> Void,
+                         failure: @escaping (String) -> Void ) {
+        
+        let parameters: [String:Any] = [
+            SharedConstants.PARAM_KEY.API_KEY: SharedConstants.PARAM_VALUE.API_KEY_VALUE,
+            SharedConstants.PARAM_KEY.LANGUAGE: SharedConstants.PARAM_VALUE.LANGUAGE_VALUE
+        ]
+        
+        let route = "movie/\(movieId)"
+        
+        NetworkClient.shared.getData(route: route, httpHeaders: [:], parameters: parameters, success: { (data) in
+            
+            guard let data = data as? JSON else { return }
+            
+            do {
+                self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                // TODO create response object => MovieDetailsVO
+//                self.nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
+                success()
+            } catch let err {
+                print(err)
+            }
+        }) { (err) in
+            print(err)
+        }
+        
+    }
+    
     func getGenre(success: @escaping () -> Void,
                   failure: @escaping (String) -> Void) {
         
         let parameters: [String: Any] = [
-            "api_key": "7d56df239f3717c4641ffd5917635441",
-            "language": "en-US"
+            SharedConstants.PARAM_KEY.API_KEY: SharedConstants.PARAM_VALUE.API_KEY_VALUE,
+            SharedConstants.PARAM_KEY.LANGUAGE: SharedConstants.PARAM_VALUE.LANGUAGE_VALUE
         ]
                 
-        NetworkClient.shared.getData(route: "genre/movie/list", httpHeaders: [:], parameters: parameters, success: { (data) in
+        NetworkClient.shared.getData(route: SharedConstants.ROUTE.GET_GENRE_LIST, httpHeaders: [:], parameters: parameters, success: { (data) in
             
             guard let data = data as? JSON else  { return }
 

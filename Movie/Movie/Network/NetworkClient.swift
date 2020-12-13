@@ -16,15 +16,13 @@ class NetworkClient {
     
     static let shared = NetworkClient()
     
-    let baseUrl = "https://api.themoviedb.org/3/"
-    
     func getData(route: String,
                       httpHeaders: HTTPHeaders,
                       parameters: Parameters,
                       success: @escaping (Any) -> Void,
                       failure: @escaping (String) -> Void)  {
         
-        AF.request(baseUrl + route,method: .get,parameters: parameters,headers: httpHeaders).responseJSON { (response) in
+        AF.request(SharedConstants.baseUrl + route,method: .get,parameters: parameters,headers: httpHeaders).responseJSON { (response) in
             switch response.result {
             case .success(let data):
                 let json = JSON(data)

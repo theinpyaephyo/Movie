@@ -39,8 +39,6 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var btnBook: UIButton!
     @IBOutlet weak var btnFavourite: UIView!
     
-    private var baseUrl = "https://image.tmdb.org/t/p/original"
-    
     private var genreName: [String] = []
     private var genreCount: Int = 1
     
@@ -61,7 +59,7 @@ class MovieListTableViewCell: UITableViewCell {
         }
     }
     
-    var movie: NowPlayingVO? {
+    var movie: MovieVO? {
         didSet {
             if let movieList = movie {
             
@@ -82,7 +80,7 @@ class MovieListTableViewCell: UITableViewCell {
             
                 lblMovieTitle.text = movieList.title ?? ""
                 
-                let imageURL = baseUrl + (movieList.posterPath ?? "")
+                let imageURL = SharedConstants.posterPath + (movieList.posterPath ?? "")
                 
                 imgMoviePoster.sd_setImage(with: URL(string: imageURL))
                 

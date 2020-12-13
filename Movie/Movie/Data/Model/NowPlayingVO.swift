@@ -9,7 +9,11 @@
 import Foundation
 
 struct NowPlayingVO: Codable {
-    
+    var totalPages: Int?
+    var results: [MovieVO]?
+}
+
+struct MovieVO: Codable {
     var adult: BooleanLiteralType?
     var backdropPath: String?
     var genreIds: [Int]?
@@ -25,3 +29,4 @@ struct NowPlayingVO: Codable {
     var voteAverage: Float?
     var voteCount: Int?
 }
+    

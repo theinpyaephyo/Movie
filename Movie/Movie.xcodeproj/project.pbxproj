@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		3A5B05D6257F3B3800261D9D /* GenreVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05D5257F3B3800261D9D /* GenreVO.swift */; };
 		3A5B05D8257F3B4F00261D9D /* MovieDetailVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05D7257F3B4F00261D9D /* MovieDetailVO.swift */; };
 		3A5B05DC257FBF6C00261D9D /* ProductionCompaniesVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05DB257FBF6C00261D9D /* ProductionCompaniesVO.swift */; };
+		B777FCF42586494C00EC402B /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777FCF32586494C00EC402B /* SharedConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		3A5B05D7257F3B4F00261D9D /* MovieDetailVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVO.swift; sourceTree = "<group>"; };
 		3A5B05DB257FBF6C00261D9D /* ProductionCompaniesVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCompaniesVO.swift; sourceTree = "<group>"; };
 		6910898F02A7049FBB101F06 /* Pods-Movie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie.release.xcconfig"; path = "Target Support Files/Pods-Movie/Pods-Movie.release.xcconfig"; sourceTree = "<group>"; };
+		B777FCF32586494C00EC402B /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				3A1A7BF82579129F0050DA97 /* Info.plist */,
 				3A1A7C0225791B010050DA97 /* MainTableViewCell.swift */,
 				3A1A7C0325791B010050DA97 /* MainTableViewCell.xib */,
+				B777FCF32586494C00EC402B /* SharedConstants.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -174,7 +177,6 @@
 				1BA7E1C906385EE14F6D1EED /* Pods-Movie.debug.xcconfig */,
 				6910898F02A7049FBB101F06 /* Pods-Movie.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -299,6 +301,7 @@
 				3A1A7C00257912FA0050DA97 /* MainViewController.swift in Sources */,
 				3A5B05D2257F3AF100261D9D /* NowPlayingVO.swift in Sources */,
 				3A5B05DC257FBF6C00261D9D /* ProductionCompaniesVO.swift in Sources */,
+				B777FCF42586494C00EC402B /* SharedConstants.swift in Sources */,
 				3A10341E257C9A4B00D5AB7A /* NetworkClient.swift in Sources */,
 				3A5B05D8257F3B4F00261D9D /* MovieDetailVO.swift in Sources */,
 				3A103425257C9ADD00D5AB7A /* MovieListTableViewCell.swift in Sources */,
