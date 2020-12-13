@@ -19,19 +19,21 @@ final class UserDataModel {
     
     let decoder = JSONDecoder()
     
+    var genreList: [GenreVO] = []
+    
     func getMovieList(page: Int = 1,
-                      success: @escaping ([NowPlayingVo]) -> Void,
+                      success: @escaping ([NowPlayingVO]) -> Void,
                       failure: @escaping (String) -> Void ){
         
         let parameters: [String:Any] = ["page":page]
         
-        NetworkClient.shared.getMovieList(route: "movie/now_playing?api_key=7d56df239f3717c4641ffd5917635441&language=en-US&page=1", httpHeaders: [:], parameters: parameters, success: { (data) in
+        NetworkClient.shared.getData(route: "movie/now_playing?api_key=7d56df239f3717c4641ffd5917635441&language=en-US&page=1", httpHeaders: [:], parameters: parameters, success: { (data) in
             
             guard let data = data as? JSON else { return }
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let movieLists = try self.decoder.decode([NowPlayingVo].self, from: Data(data["results"].rawData()))
+                let movieLists = try self.decoder.decode([NowPlayingVO].self, from: Data(data["results"].rawData()))
                 success(movieLists)
             } catch let err {
                 print(err)
@@ -44,13 +46,15 @@ final class UserDataModel {
         }
     }
     
-    func getGenre(success: @escaping ([GenreVO]) -> Void,
+    func getGenre(success: @escaping () -> Void,
                   failure: @escaping (String) -> Void) {
         
-//        let parameters: [String:Any] = ["api_key":7d56df239f3717c4641ffd5917635441,"language":en-US]
-        let parameters: [String:Any] = [:]
-        
-        NetworkClient.shared.getGenre(route: "genre/movie/list?api_key=7d56df239f3717c4641ffd5917635441&language=en-US", httpheaders: [:], parameters: parameters, success: { (data) in
+        let parameters: [String: Any] = [
+            "api_key": "7d56df239f3717c4641ffd5917635441",
+            "language": "en-US"
+        ]
+                
+        NetworkClient.shared.getData(route: "genre/movie/list", httpHeaders: [:], parameters: parameters, success: { (data) in
             
             guard let data = data as? JSON else  { return }
 
@@ -58,8 +62,8 @@ final class UserDataModel {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
-                let genreLists = try decoder.decode([GenreVO].self, from: Data(data["genres"].rawData()))
-                success(genreLists)
+                self.genreList = try decoder.decode([GenreVO].self, from: Data(data["genres"].rawData()))
+                success()
             } catch let err {
                 print(err.localizedDescription)
             }

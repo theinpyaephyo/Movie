@@ -14,8 +14,6 @@ class MovieListTableViewCell: UITableViewCell {
     
     static let identifier = "MovieListTableViewCell"
     
-    
-
     @IBOutlet weak var lblMovieTitle: UILabel!
     @IBOutlet weak var imgMoviePoster: UIImageView!
     @IBOutlet weak var lblVoteAverage: UILabel!
@@ -37,26 +35,23 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var btnBook: UIButton!
     @IBOutlet weak var btnFavourite: UIView!
     
-    
     var baseUrl = "https://image.tmdb.org/t/p/original"
     
-    var genreList: GenreVO?
     var genreName: [String] = []
     var genreCount: Int = 1
     
-    var movieList: NowPlayingVo? {
+    var movie: NowPlayingVO? {
         didSet {
-            if let movieList = movieList {
-                
-                
+            if let movieList = movie {
+            
                 //Clear lblGenre
-                
+
                 lblGenre1.text = ""
                 lblGenre2.text = ""
                 lblGenre3.text = ""
                 lblGenre4.text = ""
                 lblGenre5.text = ""
-                
+
                 viewGenre1.isHidden = true
                 viewGenre2.isHidden = true
                 viewGenre3.isHidden = true
@@ -74,18 +69,16 @@ class MovieListTableViewCell: UITableViewCell {
                 
                 lblDuration.text = ""
                 
-                
                 movieList.genreIds?.forEach({ (mvGenreId) in
-                    MainViewController.genreList.forEach { (genreData) in
+                    UserDataModel.shared.genreList.forEach { (genreData) in
                         if mvGenreId == genreData.id {
-//                            genreName.append(contentsOf: "\(genreData.name)" ?? "")
                             genreName.append(genreData.name ?? "")
                         }
                     }
                 })
-                
+                                
                 genreName.forEach { (name) in
-                 
+
                     switch genreCount {
                     case 1:
                         lblGenre1.text = name
@@ -111,7 +104,7 @@ class MovieListTableViewCell: UITableViewCell {
                         lblGenre5.text = name
                         viewGenre5.isHidden = false
                         break
-                        
+
                     default:
                         break
                     }
@@ -128,6 +121,8 @@ class MovieListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        ivFavourite.tintColor = .systemBackground
         
         ivFavourite.image = UIImage(systemName: "heart.fill")
         imgMoviePoster.layer.cornerRadius = 30
@@ -178,11 +173,6 @@ class MovieListTableViewCell: UITableViewCell {
     }
     
     @objc func onClick() {
-        if ivFavourite.tintColor == .none {
-            ivFavourite.tintColor = .red
-        } else {
-            ivFavourite.tintColor = .systemba
-        }
         
     }
 

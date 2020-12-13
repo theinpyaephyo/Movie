@@ -9,10 +9,6 @@
 import Foundation
 
 struct GenreVO: Codable {
-    
     var id: Int?
     var name: String?
-    
-//    "id": 28,
-//    "name": "Action"
 }
