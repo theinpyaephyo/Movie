@@ -14,9 +14,9 @@
             filePath = "Movie/View/Cell/MovieListTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "movieList"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "movie"
             landmarkType = "24">
             <Locations>
                <Location
@@ -62,9 +62,9 @@
             filePath = "Movie/View/Cell/MovieListTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "movieList"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "movie"
             landmarkType = "24">
             <Locations>
                <Location

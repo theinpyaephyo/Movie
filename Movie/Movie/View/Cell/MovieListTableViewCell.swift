@@ -10,6 +10,10 @@ import UIKit
 import SDWebImage
 import QuartzCore
 
+protocol MovieListItemDelegate {
+    func onTapFavourite(index: Int,state: Bool)
+}
+
 class MovieListTableViewCell: UITableViewCell {
     
     static let identifier = "MovieListTableViewCell"
@@ -35,10 +39,27 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var btnBook: UIButton!
     @IBOutlet weak var btnFavourite: UIView!
     
-    var baseUrl = "https://image.tmdb.org/t/p/original"
+    private var baseUrl = "https://image.tmdb.org/t/p/original"
     
-    var genreName: [String] = []
-    var genreCount: Int = 1
+    private var genreName: [String] = []
+    private var genreCount: Int = 1
+    
+    var delegate: MovieListItemDelegate?
+    
+    var index: Int?
+    
+    var favouriteState: Bool? {
+        didSet {
+            if let favouriteState = favouriteState {
+                if favouriteState {
+                    ivFavourite.tintColor = .red
+                } else {
+                    ivFavourite.tintColor = .systemBackground
+                }
+            }
+            
+        }
+    }
     
     var movie: NowPlayingVO? {
         didSet {
@@ -173,7 +194,9 @@ class MovieListTableViewCell: UITableViewCell {
     }
     
     @objc func onClick() {
-        
+        if let index = index , let favouriteState = favouriteState {
+             delegate?.onTapFavourite(index: index, state: !favouriteState)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

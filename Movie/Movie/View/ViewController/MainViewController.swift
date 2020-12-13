@@ -45,14 +45,10 @@ class MainViewController: UIViewController {
         
         UserDataModel.shared.getMovieList(success: { (movieLists) in
             
-            UserDataModel.shared.getGenre {
-                
+            UserDataModel.shared.getGenre(success: {
                 self.movieList = movieLists
                 self.movieListTableView.reloadData()
-                
-                
-                
-            } failure: { (err) in
+            }) { (err) in
                 print(err)
             }
             
@@ -72,8 +68,20 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as! MovieListTableViewCell
         cell.movie = movieList[indexPath.row]
+        cell.delegate = self
+        cell.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
+        cell.index = indexPath.row
         return cell
     }
+}
+
+extension MainViewController: MovieListItemDelegate {
+    func onTapFavourite(index: Int, state: Bool) {
+        UserDataModel.shared.favouriteStateList[index] = state
+        movieListTableView.reloadData()
+    }
+    
+    
 }
 
 

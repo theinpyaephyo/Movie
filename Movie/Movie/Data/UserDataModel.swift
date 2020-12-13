@@ -21,6 +21,8 @@ final class UserDataModel {
     
     var genreList: [GenreVO] = []
     
+    var favouriteStateList: [Bool] = []
+    
     func getMovieList(page: Int = 1,
                       success: @escaping ([NowPlayingVO]) -> Void,
                       failure: @escaping (String) -> Void ){
@@ -34,6 +36,12 @@ final class UserDataModel {
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movieLists = try self.decoder.decode([NowPlayingVO].self, from: Data(data["results"].rawData()))
+                
+                //favourite state list
+                movieLists.forEach { (_) in
+                    self.favouriteStateList.append(false)
+                }
+                
                 success(movieLists)
             } catch let err {
                 print(err)
