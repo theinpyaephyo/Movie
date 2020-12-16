@@ -24,6 +24,7 @@
 		3A5B05D6257F3B3800261D9D /* GenreVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05D5257F3B3800261D9D /* GenreVO.swift */; };
 		3A5B05D8257F3B4F00261D9D /* MovieDetailVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05D7257F3B4F00261D9D /* MovieDetailVO.swift */; };
 		3A5B05DC257FBF6C00261D9D /* ProductionCompaniesVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B05DB257FBF6C00261D9D /* ProductionCompaniesVO.swift */; };
+		3A6DC77125885EF100BBD284 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6DC77025885EF100BBD284 /* DetailViewController.swift */; };
 		B777FCF42586494C00EC402B /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777FCF32586494C00EC402B /* SharedConstants.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		3A5B05D5257F3B3800261D9D /* GenreVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreVO.swift; sourceTree = "<group>"; };
 		3A5B05D7257F3B4F00261D9D /* MovieDetailVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVO.swift; sourceTree = "<group>"; };
 		3A5B05DB257FBF6C00261D9D /* ProductionCompaniesVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCompaniesVO.swift; sourceTree = "<group>"; };
+		3A6DC77025885EF100BBD284 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6910898F02A7049FBB101F06 /* Pods-Movie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie.release.xcconfig"; path = "Target Support Files/Pods-Movie/Pods-Movie.release.xcconfig"; sourceTree = "<group>"; };
 		B777FCF32586494C00EC402B /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				3A1A7BFF257912FA0050DA97 /* MainViewController.swift */,
+				3A6DC77025885EF100BBD284 /* DetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6DC77125885EF100BBD284 /* DetailViewController.swift in Sources */,
 				3A103420257C9A7C00D5AB7A /* UserDataModel.swift in Sources */,
 				3A1A7C00257912FA0050DA97 /* MainViewController.swift in Sources */,
 				3A5B05D2257F3AF100261D9D /* NowPlayingVO.swift in Sources */,

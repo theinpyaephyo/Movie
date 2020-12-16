@@ -20,6 +20,7 @@ class MovieListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblMovieTitle: UILabel!
     @IBOutlet weak var imgMoviePoster: UIImageView!
+    @IBOutlet weak var transparentLayer: UIView!
     @IBOutlet weak var lblVoteAverage: UILabel!
     @IBOutlet weak var ivFavourite: UIImageView!
     @IBOutlet weak var lblDuration: UILabel!
@@ -145,6 +146,9 @@ class MovieListTableViewCell: UITableViewCell {
         
         ivFavourite.image = UIImage(systemName: "heart.fill")
         imgMoviePoster.layer.cornerRadius = 30
+        
+        //Transparent Layer
+        transparentLayer.layer.cornerRadius = 30
         
         outerViewVoteAverage.layer.cornerRadius = outerViewVoteAverage.frame.width / 2
         innerViewVoteAverage.layer.cornerRadius = innerViewVoteAverage.frame.width / 2

@@ -63,14 +63,12 @@ class MainViewController: UIViewController {
     
     private func loadMoreData(page: Int) {
         showTableViewBottomIndicator(tableView: movieListTableView)
-        UserDataModel.shared.getMovieList(page: page) {
-            
+        UserDataModel.shared.getMovieList(page: page, success: {
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             
             self.movieList.append(contentsOf: UserDataModel.shared.nowPlayingVO.results ?? [])
             self.movieListTableView.reloadData()
-            
-        } failure: { (err) in
+        }) { (err) in
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             print(err)
         }
@@ -107,6 +105,14 @@ extension MainViewController: UITableViewDataSource {
 }
 
 extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: DetailViewController.identifier) as DetailViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+        
+        
+    }
         
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         

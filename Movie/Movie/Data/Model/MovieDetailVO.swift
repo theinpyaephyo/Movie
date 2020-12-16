@@ -8,6 +8,15 @@
 
 import Foundation
 
+struct MovieDetailVO: Codable {
+    var id: Int?
+    var originalTitle: String?
+    var overview: String?
+    var productionCompanies: [ProductionCompaniesVO]?
+    
+}
+
+
 
 //struct MovieDetailVO: Codable {
 //

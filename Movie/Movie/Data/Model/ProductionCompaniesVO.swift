@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProductionCompaniesVO {
+struct ProductionCompaniesVO: Codable {
     
     var id: Int?
     var logoPath: String?
