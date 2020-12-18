@@ -37,19 +37,20 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblMovieDuration: UILabel!
     @IBOutlet weak var lblOverview: UILabel!
     @IBOutlet weak var movieDetailCollectionView: UICollectionView!
+    @IBOutlet weak var lblOverviewDetails: UILabel!
     
-    var movieDetailList =  MovieDetailVO()
+    private var movieDetailList =  MovieDetailVO()
     
     private var castList: [ProductionCompaniesVO] = []
     
     var movieID: Int? {
         didSet {
             if let movieID = movieID {
+                
                 UserDataModel.shared.getMovieDetails(movieId: movieID, success: {
                     self.movieDetailList = UserDataModel.shared.movieDetailVO
-                    self.castList = UserDataModel.shared.productionCompany ?? []
-                    
-                    
+                    self.castList = UserDataModel.shared.movieDetailVO.productionCompanies ?? []
+                    self.loadInitial()
                 }) { (err) in
                     print(err)
                 }
@@ -57,6 +58,27 @@ class DetailViewController: UIViewController {
         }
     }
     
+    var favouriteState: Bool? {
+        didSet {
+            if let favouriteState = favouriteState {
+                if favouriteState {
+                    imgFavourite.tintColor = .red
+                } else {
+                    imgFavourite.tintColor = .systemBackground
+                }
+            }
+            
+        }
+    }
+    
+    // change status bar text color to white
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,31 +97,30 @@ class DetailViewController: UIViewController {
         outerviewVoteAverage.layer.cornerRadius = outerviewVoteAverage.frame.width / 2
         innerviewVoteAverage.layer.cornerRadius = innerviewVoteAverage.frame.width / 2
         
-        
-        
         //Favourite
         imgFavourite.image = UIImage(systemName: "heart.fill")
         
         //Collection View
         movieDetailCollectionView.register(UINib(nibName: CastListCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CastListCollectionViewCell.identifier)
         
+        movieDetailCollectionView.contentInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
+        
         movieDetailCollectionView.dataSource = self
         
         movieDetailCollectionView.delegate = self
         
-       loadInitial()
-        
-       
     }
     
     func loadInitial() {
         
         self.lblVoteAverage.text = "\(self.movieDetailList.voteAverage ?? 0)"
         
+        lblOverviewDetails.text = self.movieDetailList.overview
+        
         let url = SharedConstants.posterPath + (movieDetailList.posterPath ?? "")
         self.imgProfile.sd_setImage(with: URL(string: url))
         
-            self.movieDetailCollectionView.reloadData()
+        self.movieDetailCollectionView.reloadData()
 
     }
     
@@ -125,6 +146,6 @@ extension DetailViewController: UICollectionViewDataSource {
 }
 extension DetailViewController: UICollectionViewDelegateFlowLayout,UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 90, height: 120)
+        return CGSize(width: 90, height: 175)
     }
 }

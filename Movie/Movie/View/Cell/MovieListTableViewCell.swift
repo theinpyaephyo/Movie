@@ -49,7 +49,6 @@ class MovieListTableViewCell: UITableViewCell {
     
     var index: Int?
     
-    
     var favouriteState: Bool? {
         didSet {
             if let favouriteState = favouriteState {

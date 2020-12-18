@@ -26,10 +26,7 @@ final class UserDataModel {
     var nowPlayingVO = NowPlayingVO()
     
     var movieDetailVO = MovieDetailVO()
-    
-    var productionCompany: [ProductionCompaniesVO]?
-    
-    
+        
     func getMovieList(page: Int = 1,
                       success: @escaping () -> Void,
                       failure: @escaping (String) -> Void ){

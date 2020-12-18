@@ -20,7 +20,7 @@ class CastListCollectionViewCell: UICollectionViewCell {
         didSet {
             if let castList = castList {
                 let url = SharedConstants.posterPath + (castList.logoPath ?? "")
-                imgCast.sd_setImage(with: URL(string: url))
+                imgCast.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "empty_logo"))
                 
                 lblCastName.text = castList.name
             }

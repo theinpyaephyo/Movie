@@ -109,14 +109,14 @@ extension MainViewController: UITableViewDataSource {
 }
 
 extension MainViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: DetailViewController.identifier) as DetailViewController
         vc.modalPresentationStyle = .fullScreen
-        vc.movieID = movieList[indexPath.row].id
         self.present(vc, animated: true, completion: nil)
-        
-        
+        vc.movieID = movieList[indexPath.row].id
+        vc.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
     }
         
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
