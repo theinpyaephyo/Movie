@@ -12,7 +12,10 @@ struct MovieDetailVO: Codable {
     var id: Int?
     var originalTitle: String?
     var overview: String?
-    var productionCompanies: [ProductionCompaniesVO]?
+    var genres: [GenreVO]?
+    var voteAverage: Float?
+    var posterPath: String?
+    var productionCompanies: [ProductionCompaniesVO]? 
     
 }
 

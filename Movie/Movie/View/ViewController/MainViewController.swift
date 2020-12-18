@@ -39,6 +39,10 @@ class MainViewController: UIViewController {
         
         movieListTableView.separatorStyle = .none
         
+       
+        
+
+        
         imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
         
         loadInitialData()
@@ -109,6 +113,7 @@ extension MainViewController: UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: DetailViewController.identifier) as DetailViewController
         vc.modalPresentationStyle = .fullScreen
+        vc.movieID = movieList[indexPath.row].id
         self.present(vc, animated: true, completion: nil)
         
         
