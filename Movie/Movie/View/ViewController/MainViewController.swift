@@ -117,6 +117,7 @@ extension MainViewController: UITableViewDelegate {
         self.present(vc, animated: true, completion: nil)
         vc.movieID = movieList[indexPath.row].id
         vc.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
+        vc.tableViewCellIndex = indexPath.row
     }
         
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -43,6 +43,21 @@ class DetailViewController: UIViewController {
     
     private var castList: [ProductionCompaniesVO] = []
     
+    private var genreName: [String] = []
+    
+    private var genreCount: Int = 1
+    
+    private var index: Int?
+    
+    var tableViewCellIndex: Int? {
+        didSet {
+            if let tableViewCellIndex = tableViewCellIndex {
+                index = tableViewCellIndex
+            }
+        }
+    }
+    
+    
     var movieID: Int? {
         didSet {
             if let movieID = movieID {
@@ -109,6 +124,13 @@ class DetailViewController: UIViewController {
         
         movieDetailCollectionView.delegate = self
         
+        //Favourite View Button
+        
+        btnFavourite.isUserInteractionEnabled = true
+        
+        let addGesture = UITapGestureRecognizer(target: self, action: #selector(onClickFavourite))
+        btnFavourite.addGestureRecognizer(addGesture)
+        
     }
     
     func loadInitial() {
@@ -120,12 +142,86 @@ class DetailViewController: UIViewController {
         let url = SharedConstants.posterPath + (movieDetailList.posterPath ?? "")
         self.imgProfile.sd_setImage(with: URL(string: url))
         
+        //Genre
+        self.svUpperLayer.isHidden = true
+        self.svBelowLayer.isHidden = true
+        
+        self.viewGenre1.isHidden = true
+        self.viewGenre2.isHidden = true
+        self.viewGenre3.isHidden = true
+        self.viewGenre4.isHidden = true
+        self.viewGenre5.isHidden = true
+        
+        self.lblGenre1.text = ""
+        self.lblGenre2.text = ""
+        self.lblGenre3.text = ""
+        self.lblGenre4.text = ""
+        self.lblGenre5.text = ""
+        
+        movieDetailList.genres?.forEach({ (genreID) in
+            UserDataModel.shared.genreList.forEach { (genreNameId) in
+                if genreID.id == genreNameId.id {
+                    genreName.append(genreNameId.name ?? "")
+                }
+            }
+        })
+        genreName.forEach { (name) in
+            switch genreCount {
+            case 1:
+                svBelowLayer.isHidden = false
+                viewGenre1.isHidden = false
+                lblGenre1.text = name
+                genreCount+=1
+                break
+            case 2:
+                viewGenre2.isHidden = false
+                lblGenre2.text = name
+                genreCount+=1
+                break
+            case 3:
+                viewGenre3.isHidden = false
+                lblGenre3.text = name
+                genreCount+=1
+                break
+            case 4:
+                svUpperLayer.isHidden = false
+                viewGenre4.isHidden = false
+                lblGenre4.text = name
+                genreCount+=1
+                break
+            case 5:
+                viewGenre5.isHidden = false
+                lblGenre5.text = name
+                
+                break
+            default:
+                break
+            }
+            
+        }
+        genreCount = 1
+        
+        
         self.movieDetailCollectionView.reloadData()
 
     }
     
     @objc func onClick() {
         self.dismiss(animated: true, completion: nil)
+        UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
+        
+       
+    }
+    //Favourite Button Click Event
+    @objc func onClickFavourite() {
+        if imgFavourite.tintColor == UIColor.systemBackground {
+            imgFavourite.tintColor = UIColor.red
+            favouriteState = true
+            
+        } else {
+            imgFavourite.tintColor = UIColor.systemBackground
+            favouriteState = false
+        }
     }
     
 
