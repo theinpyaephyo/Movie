@@ -84,6 +84,7 @@ final class UserDataModel {
                 // TODO create response object => MovieDetailsVO
 //                self.nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
                 self.movieDetailVO = try self.decoder.decode(MovieDetailVO.self, from: Data(data.rawData()))
+               
                 
                 success()
             } catch let err {

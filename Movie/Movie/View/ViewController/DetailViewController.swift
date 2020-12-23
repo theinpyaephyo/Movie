@@ -47,6 +47,8 @@ class DetailViewController: UIViewController {
     
     private var genreCount: Int = 1
     
+    private var movieDuration: Int?
+    
     private var index: Int?
     
     var tableViewCellIndex: Int? {
@@ -97,6 +99,31 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Genre border colour
+        viewGenre1.layer.borderColor = UIColor.white.cgColor
+        viewGenre1.layer.borderWidth = 1
+        
+        viewGenre2.layer.borderColor = UIColor.white.cgColor
+        viewGenre2.layer.borderWidth = 1
+        
+        viewGenre3.layer.borderColor = UIColor.white.cgColor
+        viewGenre3.layer.borderWidth = 1
+        
+        viewGenre4.layer.borderColor = UIColor.white.cgColor
+        viewGenre4.layer.borderWidth = 1
+         
+        viewGenre5.layer.borderColor = UIColor.white.cgColor
+        viewGenre5.layer.borderWidth = 1
+        
+        
+        //Genre corner radius
+        viewGenre1.layer.cornerRadius = viewGenre1.frame.height / 8
+        viewGenre2.layer.cornerRadius = viewGenre2.frame.height / 8
+        viewGenre3.layer.cornerRadius = viewGenre3.frame.height / 8
+        viewGenre4.layer.cornerRadius = viewGenre4.frame.height / 8
+        viewGenre5.layer.cornerRadius = viewGenre5.frame.height / 8
+        
 
         btnBack.layer.cornerRadius = btnBack.frame.width / 2
         
@@ -141,6 +168,18 @@ class DetailViewController: UIViewController {
         
         let url = SharedConstants.posterPath + (movieDetailList.posterPath ?? "")
         self.imgProfile.sd_setImage(with: URL(string: url))
+        
+        //Movie Title
+        lblMovieTitle.text = movieDetailList.originalTitle ?? ""
+        
+        //Movie Duration
+        movieDuration = movieDetailList.runtime ?? 0
+        let time = NSInteger(movieDuration ?? 0)
+        let minutes = time %  60
+        let hours = time / 60
+        lblMovieDuration.text = "\(hours)" + "h " + "\(minutes)" + "mins" 
+
+//        return NSString(format: "%0.2d:%0.2d:%0.2d.%0.3d",hours,minutes,seconds,ms)
         
         //Genre
         self.svUpperLayer.isHidden = true

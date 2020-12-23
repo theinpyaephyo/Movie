@@ -48,6 +48,9 @@ class MainViewController: UIViewController {
         loadInitialData()
        
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.movieListTableView.reloadData()
+    }
     
     private func loadInitialData() {
         
