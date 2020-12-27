@@ -23,7 +23,11 @@ final class UserDataModel {
     
     var favouriteStateList: [Bool] = []
     
+    var upComingFavouriteStateList: [Bool] = []
+    
     var nowPlayingVO = NowPlayingVO()
+    
+    var upComingVO = NowPlayingVO()
     
     var movieDetailVO = MovieDetailVO()
         
@@ -48,6 +52,41 @@ final class UserDataModel {
                 //favourite state list
                 self.nowPlayingVO.results?.forEach { (_) in
                     self.favouriteStateList.append(false)
+                }
+                
+                success()
+            } catch let err {
+                print(err)
+            }
+            
+            
+            
+        }) { (err) in
+            print(err)
+        }
+    }
+    
+    func getUpcomingMovieList(page: Int = 1,
+                      success: @escaping () -> Void,
+                      failure: @escaping (String) -> Void ){
+        
+        let parameters: [String:Any] = [
+            SharedConstants.PARAM_KEY.API_KEY: SharedConstants.PARAM_VALUE.API_KEY_VALUE,
+            SharedConstants.PARAM_KEY.LANGUAGE: SharedConstants.PARAM_VALUE.LANGUAGE_VALUE,
+            SharedConstants.PARAM_KEY.PAGE: page
+        ]
+        
+        NetworkClient.shared.getData(route: SharedConstants.ROUTE.GET_UPCOMING_LIST, httpHeaders: [:], parameters: parameters, success: { (data) in
+            
+            guard let data = data as? JSON else { return }
+            
+            do {
+                self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+                self.upComingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
+                
+                //favourite state list
+                self.upComingVO.results?.forEach { (_) in
+                    self.upComingFavouriteStateList.append(false)
                 }
                 
                 success()

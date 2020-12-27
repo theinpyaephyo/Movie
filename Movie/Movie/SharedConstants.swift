@@ -28,6 +28,7 @@ class SharedConstants {
     enum ROUTE {
         static let GET_MOVIE_LIST = "movie/now_playing"
         static let GET_GENRE_LIST = "genre/movie/list"
+        static let GET_UPCOMING_LIST = "movie/upcoming"
     }
     
 }

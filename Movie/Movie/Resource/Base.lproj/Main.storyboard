@@ -75,6 +75,9 @@
                                             <segment title="Coming Soon"/>
                                         </segments>
                                         <color key="selectedSegmentTintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="scMovieTab:" destination="BYZ-38-t0r" eventType="valueChanged" id="fl8-jS-3vT"/>
+                                        </connections>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N7c-8P-fbL">
                                         <rect key="frame" x="0.0" y="138" width="414" height="714"/>
@@ -141,16 +144,15 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OuF-Wh-BJB">
                                                 <rect key="frame" x="32" y="72" width="32" height="32"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-jT-yWP">
-                                                        <rect key="frame" x="6" y="8" width="20" height="16.5"/>
-                                                        <color key="tintColor" systemColor="tertiarySystemFillColor" red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.left.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-jT-yWP">
+                                                        <rect key="frame" x="1" y="1.5" width="30" height="29"/>
+                                                        <color key="tintColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="DYJ-Hq-yWD"/>
-                                                            <constraint firstAttribute="width" constant="20" id="s1N-xd-nfK"/>
+                                                            <constraint firstAttribute="height" constant="30" id="DYJ-Hq-yWD"/>
+                                                            <constraint firstAttribute="width" constant="30" id="s1N-xd-nfK"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="Hgs-jT-yWP" firstAttribute="centerX" secondItem="OuF-Wh-BJB" secondAttribute="centerX" id="97i-9W-rLK"/>
                                                     <constraint firstAttribute="width" constant="32" id="B07-44-hM2"/>
@@ -490,7 +492,7 @@
     </scenes>
     <resources>
         <image name="129349963_143308623847962_7321864260905310224_n (1)" width="25" height="25"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="profile" width="225" height="225"/>
     </resources>

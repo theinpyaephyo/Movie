@@ -51,6 +51,16 @@ class DetailViewController: UIViewController {
     
     private var index: Int?
     
+    private var scIndex: Int?
+    
+    var segmentedControlIndex: Int? {
+        didSet {
+            if let segmentedControlIndex = segmentedControlIndex {
+                scIndex = segmentedControlIndex
+            }
+        }
+    }
+    
     var tableViewCellIndex: Int? {
         didSet {
             if let tableViewCellIndex = tableViewCellIndex {
@@ -197,12 +207,15 @@ class DetailViewController: UIViewController {
         self.lblGenre4.text = ""
         self.lblGenre5.text = ""
         
-        movieDetailList.genres?.forEach({ (genreID) in
-            UserDataModel.shared.genreList.forEach { (genreNameId) in
-                if genreID.id == genreNameId.id {
-                    genreName.append(genreNameId.name ?? "")
-                }
-            }
+//        movieDetailList.genres?.forEach({ (genreID) in
+//            UserDataModel.shared.genreList.forEach { (genreNameId) in
+//                if genreID.id == genreNameId.id {
+//                    genreName.append(genreNameId.name ?? "")
+//                }
+//            }
+//        })
+        movieDetailList.genres?.forEach({ (genreVO) in
+            genreName.append(genreVO.name ?? "")
         })
         genreName.forEach { (name) in
             switch genreCount {
@@ -247,7 +260,12 @@ class DetailViewController: UIViewController {
     
     @objc func onClick() {
         self.dismiss(animated: true, completion: nil)
-        UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
+        if scIndex == 0 {
+            UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
+        } else {
+            UserDataModel.shared.upComingFavouriteStateList[index ?? 0] = favouriteState ?? false
+        }
+        
         
        
     }
