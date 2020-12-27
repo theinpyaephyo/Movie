@@ -51,15 +51,16 @@ class DetailViewController: UIViewController {
     
     private var index: Int?
     
-    private var scIndex: Int?
+//    private var scIndex: Int?
     
-    var segmentedControlIndex: Int? {
-        didSet {
-            if let segmentedControlIndex = segmentedControlIndex {
-                scIndex = segmentedControlIndex
-            }
-        }
-    }
+    var segmentedControlIndex: Int?
+//    {
+//        didSet {
+//            if let segmentedControlIndex = segmentedControlIndex {
+//                scIndex = segmentedControlIndex
+//            }
+//        }
+//    }
     
     var tableViewCellIndex: Int? {
         didSet {
@@ -260,15 +261,8 @@ class DetailViewController: UIViewController {
     
     @objc func onClick() {
         self.dismiss(animated: true, completion: nil)
-        if scIndex == 0 {
-            UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
-        } else {
-            UserDataModel.shared.upComingFavouriteStateList[index ?? 0] = favouriteState ?? false
-        }
-        
-        
-       
     }
+    
     //Favourite Button Click Event
     @objc func onClickFavourite() {
         if imgFavourite.tintColor == UIColor.systemBackground {
@@ -278,6 +272,14 @@ class DetailViewController: UIViewController {
         } else {
             imgFavourite.tintColor = UIColor.systemBackground
             favouriteState = false
+        }
+        
+        if let scIndex = segmentedControlIndex {
+            if scIndex == 0 {
+                UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
+            } else {
+                UserDataModel.shared.upComingFavouriteStateList[index ?? 0] = favouriteState ?? false
+            }
         }
     }
     

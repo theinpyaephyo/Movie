@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var movieListTableView: UITableView!
     @IBOutlet weak var scMovieTab: UISegmentedControl!
     @IBOutlet weak var imgProfile: UIImageView!
+    
     @IBAction func scMovieTab(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             loadInitialData()
@@ -197,12 +198,11 @@ extension MainViewController: UITableViewDelegate {
                 if page <= (UserDataModel.shared.nowPlayingVO.totalPages ?? 0) {
                     page += 1
                     loadMoreData(page: page)
-                } else {
-                    if upcomingPage <= (UserDataModel.shared.upComingVO.totalPages ?? 0) {
-                        upcomingPage += 1
-                        upComingLoadMoreData(page: upcomingPage)
-                    }
-                    
+                }
+            } else {
+                if upcomingPage <= (UserDataModel.shared.upComingVO.totalPages ?? 0) {
+                    upcomingPage += 1
+                    upComingLoadMoreData(page: upcomingPage)
                 }
             }
         }
