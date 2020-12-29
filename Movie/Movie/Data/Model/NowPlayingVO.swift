@@ -14,7 +14,7 @@ struct NowPlayingVO: Codable {
 }
 
 struct MovieVO: Codable {
-    var adult: BooleanLiteralType?
+    var adult: Bool?
     var backdropPath: String?
     var genreIds: [Int]?
     var id: Int?
@@ -25,7 +25,7 @@ struct MovieVO: Codable {
     var posterPath: String?
     var releaseDate: String?
     var title: String?
-    var video: BooleanLiteralType?
+    var video: Bool?
     var voteAverage: Float?
     var voteCount: Int?
 }

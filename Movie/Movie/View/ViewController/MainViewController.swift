@@ -33,14 +33,21 @@ class MainViewController: UIViewController {
         if sender.selectedSegmentIndex == 0 {
             loadInitialData()
             selectedTab = 0
+            // store persistence layer
+            UserDefaults.standard.set(0, forKey: "SC_Seletect_Tab")
         } else {
             loadUpcomingMovieData()
             selectedTab = 1
+            // store persistence layer
+            UserDefaults.standard.set(1, forKey: "SC_Seletect_Tab")
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let selectedIndex = UserDefaults.standard.integer(forKey: "SC_Seletect_Tab")
+        scMovieTab.selectedSegmentIndex = selectedIndex
         
         let selected = [NSAttributedString.Key.foregroundColor: UIColor.white]
         let normal = [NSAttributedString.Key.foregroundColor: UIColor.gray]
