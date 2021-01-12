@@ -276,7 +276,7 @@ class DetailViewController: UIViewController {
         
         if let scIndex = segmentedControlIndex {
             if scIndex == 0 {
-                UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
+//                UserDataModel.shared.favouriteStateList[index ?? 0] = favouriteState ?? false
             } else {
                 UserDataModel.shared.upComingFavouriteStateList[index ?? 0] = favouriteState ?? false
             }

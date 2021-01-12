@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct GenreVO: Codable {
-    var id: Int?
-    var name: String?
+class GenreVO: Object, Codable {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String?
 }

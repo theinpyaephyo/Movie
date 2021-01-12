@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import QuartzCore
+import RealmSwift
 
 protocol MovieListItemDelegate {
     func onTapFavourite(index: Int,state: Bool)
@@ -45,27 +46,25 @@ class MovieListTableViewCell: UITableViewCell {
     private var genreName: [String] = []
     private var genreCount: Int = 1
     
+    private var favouriteState = false
+    
     var delegate: MovieListItemDelegate?
     
     var index: Int?
     
-    var favouriteState: Bool? {
-        didSet {
-            if let favouriteState = favouriteState {
-                if favouriteState {
-                    ivFavourite.tintColor = .red
-                } else {
-                    ivFavourite.tintColor = .systemBackground
-                }
-            }
-            
-        }
-    }
-    
     var movie: MovieVO? {
         didSet {
             if let movieList = movie {
-            
+                
+                if let favouriteStateVO = RealmHelper.shared.retrieveFavouriteState(movieId: movieList.id) {
+                    self.favouriteState = favouriteStateVO.state
+                    if favouriteStateVO.state {
+                        ivFavourite.tintColor = .red
+                    } else {
+                        ivFavourite.tintColor = .systemBackground
+                    }
+                }
+        
                 //Clear lblGenre
 
                 lblGenre1.text = ""
@@ -80,19 +79,18 @@ class MovieListTableViewCell: UITableViewCell {
                 viewGenre4.isHidden = true
                 viewGenre5.isHidden = true
                 
-            
                 lblMovieTitle.text = movieList.title ?? ""
                 
                 let imageURL = SharedConstants.posterPath + (movieList.posterPath ?? "")
                 
                 imgMoviePoster.sd_setImage(with: URL(string: imageURL))
                 
-                lblVoteAverage.text = "\(movieList.voteAverage ?? 0)"
+                lblVoteAverage.text = "\(movieList.voteAverage)"
                 
                 lblDuration.text = ""
                 
-                movieList.genreIds?.forEach({ (mvGenreId) in
-                    UserDataModel.shared.genreList.forEach { (genreData) in
+                movieList.genreIds.forEach({ (mvGenreId) in
+                    RealmHelper.shared.retrieveGenre().forEach { (genreData) in
                         if mvGenreId == genreData.id {
                             genreName.append(genreData.name ?? "")
                         }
@@ -198,11 +196,9 @@ class MovieListTableViewCell: UITableViewCell {
     }
     
     @objc func onClick() {
-        if let index = index , let favouriteState = favouriteState {
-             delegate?.onTapFavourite(index: index, state: !favouriteState)
+        if let index = index {
+            delegate?.onTapFavourite(index: index, state: !favouriteState)
         }
-        
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -210,6 +206,8 @@ class MovieListTableViewCell: UITableViewCell {
 
        
     }
+    
+    
     
  
 }

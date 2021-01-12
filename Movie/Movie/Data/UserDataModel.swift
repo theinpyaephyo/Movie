@@ -18,20 +18,14 @@ final class UserDataModel {
     static let shared = UserDataModel()
     
     let decoder = JSONDecoder()
-    
-    var genreList: [GenreVO] = []
-    
-    var favouriteStateList: [Bool] = []
-    
+        
     var upComingFavouriteStateList: [Bool] = []
-    
-    var nowPlayingVO = NowPlayingVO()
-    
-    var upComingVO = NowPlayingVO()
+        
+    var upComingVO = UpcomingVO()
     
     var movieDetailVO = MovieDetailVO()
         
-    func getMovieList(page: Int = 1,
+    func getNowPlayingMovieList(page: Int = 1,
                       success: @escaping () -> Void,
                       failure: @escaping (String) -> Void ){
         
@@ -47,19 +41,22 @@ final class UserDataModel {
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-                self.nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
-                
-                //favourite state list
-                self.nowPlayingVO.results?.forEach { (_) in
-                    self.favouriteStateList.append(false)
+                let nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
+                                
+                RealmHelper.shared.insertNowPlayingMovie(nowPlaying: nowPlayingVO)
+                if RealmHelper.shared.retrieveFavouriteState().count != RealmHelper.shared.retrieveNowPlayingMovie().first?.results.count {
+                    nowPlayingVO.results.forEach { (movieVO) in
+                        let favouriteStateVO = FavouriteStateVO()
+                        favouriteStateVO.movieId = movieVO.id
+                        favouriteStateVO.state = false
+                        RealmHelper.shared.insertFavouriteState(favouriteState: favouriteStateVO)
+                    }
                 }
-                
                 success()
+                
             } catch let err {
                 print(err)
             }
-            
-            
             
         }) { (err) in
             print(err)
@@ -82,10 +79,10 @@ final class UserDataModel {
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-                self.upComingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
+                self.upComingVO = try self.decoder.decode(UpcomingVO.self, from: Data(data.rawData()))
                 
                 //favourite state list
-                self.upComingVO.results?.forEach { (_) in
+                self.upComingVO.results.forEach { (_) in
                     self.upComingFavouriteStateList.append(false)
                 }
                 
@@ -135,8 +132,7 @@ final class UserDataModel {
         
     }
     
-    func getGenre(success: @escaping () -> Void,
-                  failure: @escaping (String) -> Void) {
+    func getGenre(failure: @escaping (String) -> Void) {
         
         let parameters: [String: Any] = [
             SharedConstants.PARAM_KEY.API_KEY: SharedConstants.PARAM_VALUE.API_KEY_VALUE,
@@ -151,8 +147,13 @@ final class UserDataModel {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
-                self.genreList = try decoder.decode([GenreVO].self, from: Data(data["genres"].rawData()))
-                success()
+                let genreList = try decoder.decode([GenreVO].self, from: Data(data["genres"].rawData()))
+                
+                RealmHelper.shared.deleteGenre()
+                genreList.forEach { (genreVO) in
+                    RealmHelper.shared.insertGenre(genre: genreVO)
+                }
+                
             } catch let err {
                 print(err.localizedDescription)
             }

@@ -8,14 +8,15 @@
 
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UIViewController {
     
     static let identifier = "MainViewController"
     
-    private var movieList: [MovieVO] = []
+    private var movieList = List<MovieVO>()
     //upcoming
-    private var upcomingMovieList: [MovieVO] = []
+    private var upcomingMovieList = List<MovieVO>()
     
     let activityIndicator = UIActivityIndicatorView()
     
@@ -24,6 +25,8 @@ class MainViewController: UIViewController {
     private var upcomingPage = 1
     
     private var selectedTab = 0
+    
+    var list: [MovieVO] = []
     
     @IBOutlet weak var movieListTableView: UITableView!
     @IBOutlet weak var scMovieTab: UISegmentedControl!
@@ -66,61 +69,71 @@ class MainViewController: UIViewController {
         
         loadInitialData()
         
+        loadGenre()
+        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.movieListTableView.reloadData()
     }
     
+    private func loadGenre() {
+        UserDataModel.shared.getGenre { (err) in
+            print(err)
+        }
+    }
+    
     private func loadInitialData() {
         
-        UserDataModel.shared.getMovieList(success: {
+        UserDataModel.shared.getNowPlayingMovieList(success: {
             
-            UserDataModel.shared.getGenre(success: {
-                self.movieList = UserDataModel.shared.nowPlayingVO.results ?? []
-                self.movieListTableView.reloadData()
-            }) { (err) in
-                print(err)
-            }
+            let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
+            nowPlayingVO?.results.forEach({ (movieVO) in
+                self.movieList.append(movieVO)
+            })
+        
+            print("Realm is located at:", RealmHelper.shared.realm.configuration.fileURL!)
+            
+            self.movieListTableView.reloadData()
             
         }) { (err) in
             print(err)
         }
     }
+    
     private func loadUpcomingMovieData() {
         
         
         UserDataModel.shared.getUpcomingMovieList(success: {
             
-            UserDataModel.shared.getGenre(success: {
-                self.upcomingMovieList = UserDataModel.shared.upComingVO.results ?? []
-                self.movieListTableView.reloadData()
-            }) { (err) in
-                print(err)
-            }
-            
-        }) { (err) in
-            print(err)
-        }
-    }
-    private func loadMoreData(page: Int) {
-        showTableViewBottomIndicator(tableView: movieListTableView)
-        UserDataModel.shared.getMovieList(page: page, success: {
-            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
-            
-            self.movieList.append(contentsOf: UserDataModel.shared.nowPlayingVO.results ?? [])
+            self.upcomingMovieList = UserDataModel.shared.upComingVO.results
             self.movieListTableView.reloadData()
+            
         }) { (err) in
-            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             print(err)
         }
-        
     }
+    
+    private func loadMoreData(page: Int) {
+//        showTableViewBottomIndicator(tableView: movieListTableView)
+//        UserDataModel.shared.getNowPlayingMovieList(page: page, success: {
+//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+//
+//            self.movieList.append(objectsIn: UserDataModel.shared.nowPlayingVO.results)
+//            self.movieListTableView.reloadData()
+//        }) { (err) in
+//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+//            print(err)
+//        }
+//
+    }
+    
     private func upComingLoadMoreData(page: Int) {
         showTableViewBottomIndicator(tableView: movieListTableView)
         UserDataModel.shared.getUpcomingMovieList(page: page, success: {
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             
-            self.upcomingMovieList.append(contentsOf: UserDataModel.shared.upComingVO.results ?? [])
+            self.upcomingMovieList.append(objectsIn: UserDataModel.shared.upComingVO.results)
             self.movieListTableView.reloadData()
         }) { (err) in
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
@@ -158,13 +171,12 @@ extension MainViewController: UITableViewDataSource {
         if selectedTab == 0 {
             cell.movie = movieList[indexPath.row]
             cell.delegate = self
-            cell.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
-            cell.index = indexPath.row
+            cell.index = movieList[indexPath.row].id
             return cell
         } else {
             cell.movie = upcomingMovieList[indexPath.row]
             cell.delegate = self
-            cell.favouriteState = UserDataModel.shared.upComingFavouriteStateList[indexPath.row]
+//            cell.favouriteState = UserDataModel.shared.upComingFavouriteStateList[indexPath.row]
             cell.index = indexPath.row
             return cell
         }
@@ -181,7 +193,7 @@ extension MainViewController: UITableViewDelegate {
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
             vc.movieID = movieList[indexPath.row].id
-            vc.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
+//            vc.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
             vc.tableViewCellIndex = indexPath.row
             vc.segmentedControlIndex = selectedTab
         } else {
@@ -202,12 +214,12 @@ extension MainViewController: UITableViewDelegate {
         // check tableview reachs end method
         if movieListTableView.contentOffset.y >= (movieListTableView.contentSize.height - movieListTableView.frame.size.height) {
             if selectedTab == 0 {
-                if page <= (UserDataModel.shared.nowPlayingVO.totalPages ?? 0) {
+                if page <= (RealmHelper.shared.retrieveNowPlayingMovie().first?.totalPages ?? 0) {
                     page += 1
                     loadMoreData(page: page)
                 }
             } else {
-                if upcomingPage <= (UserDataModel.shared.upComingVO.totalPages ?? 0) {
+                if upcomingPage <= (UserDataModel.shared.upComingVO.totalPages) {
                     upcomingPage += 1
                     upComingLoadMoreData(page: upcomingPage)
                 }
@@ -221,13 +233,12 @@ extension MainViewController: UITableViewDelegate {
     extension MainViewController: MovieListItemDelegate {
         func onTapFavourite(index: Int, state: Bool) {
             if selectedTab == 0 {
-                UserDataModel.shared.favouriteStateList[index] = state
+                RealmHelper.shared.updateFavouriteStae(movieId: index, favouriteState: state)
                 movieListTableView.reloadData()
             } else {
                 UserDataModel.shared.upComingFavouriteStateList[index] = state
                 movieListTableView.reloadData()
             }
-            
         }
 }
 

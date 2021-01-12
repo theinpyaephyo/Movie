@@ -28,6 +28,7 @@
 		3A6CD195258B208700AFA706 /* CastListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CD193258B208700AFA706 /* CastListCollectionViewCell.xib */; };
 		3A6DC77125885EF100BBD284 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6DC77025885EF100BBD284 /* DetailViewController.swift */; };
 		B777FCF42586494C00EC402B /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777FCF32586494C00EC402B /* SharedConstants.swift */; };
+		B7E86F9625AB537A00E35783 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E86F9525AB537A00E35783 /* RealmHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3A6DC77025885EF100BBD284 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6910898F02A7049FBB101F06 /* Pods-Movie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie.release.xcconfig"; path = "Target Support Files/Pods-Movie/Pods-Movie.release.xcconfig"; sourceTree = "<group>"; };
 		B777FCF32586494C00EC402B /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		B7E86F9525AB537A00E35783 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		3A1A7BE9257912980050DA97 /* Movie */ = {
 			isa = PBXGroup;
 			children = (
+				B7E86F9425AB536600E35783 /* Persistence */,
 				3A10341C257C9A1300D5AB7A /* Network */,
 				3A10341B257C9A0100D5AB7A /* Data */,
 				3A1A7BFE257912B70050DA97 /* Resource */,
@@ -170,6 +173,14 @@
 				3A10341A257C99E700D5AB7A /* Cell */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B7E86F9425AB536600E35783 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				B7E86F9525AB537A00E35783 /* RealmHelper.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		D94537136240ED81F45BC22C /* Frameworks */ = {
@@ -308,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A6DC77125885EF100BBD284 /* DetailViewController.swift in Sources */,
+				B7E86F9625AB537A00E35783 /* RealmHelper.swift in Sources */,
 				3A103420257C9A7C00D5AB7A /* UserDataModel.swift in Sources */,
 				3A1A7C00257912FA0050DA97 /* MainViewController.swift in Sources */,
 				3A5B05D2257F3AF100261D9D /* NowPlayingVO.swift in Sources */,

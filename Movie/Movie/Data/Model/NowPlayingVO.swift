@@ -7,26 +7,38 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct NowPlayingVO: Codable {
-    var totalPages: Int?
-    var results: [MovieVO]?
+class NowPlayingVO: Object, Codable {
+    @objc dynamic var totalPages = 0
+    var results = List<MovieVO>()
 }
 
-struct MovieVO: Codable {
-    var adult: Bool?
-    var backdropPath: String?
-    var genreIds: [Int]?
-    var id: Int?
-    var originalLanguage: String?
-    var originalTitle: String?
-    var overview: String?
-    var popularity: Float?
-    var posterPath: String?
-    var releaseDate: String?
-    var title: String?
-    var video: Bool?
-    var voteAverage: Float?
-    var voteCount: Int?
+class MovieVO: Object, Codable {
+    @objc dynamic var adult = false
+    @objc dynamic var backdropPath: String?
+    var genreIds = List<Int>()
+    @objc dynamic var id = 0
+    @objc dynamic var originalLanguage: String?
+    @objc dynamic var originalTitle: String?
+    @objc dynamic var overview: String?
+    @objc dynamic var popularity: Float = 0.0
+    @objc dynamic var posterPath: String?
+    @objc dynamic var releaseDate: String?
+    @objc dynamic var title: String?
+    @objc dynamic var video = false
+    @objc dynamic var voteAverage: Float = 0.0
+    @objc dynamic var voteCount = 0
 }
+
+class FavouriteStateVO: Object {
+    @objc dynamic var movieId: Int = 0
+    @objc dynamic var state: Bool = false
+}
+
+class UpcomingVO: Object, Codable {
+    @objc dynamic var totalPages = 0
+    var results = List<MovieVO>()
+}
+
     
