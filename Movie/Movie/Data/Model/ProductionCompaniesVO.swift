@@ -13,12 +13,4 @@ struct ProductionCompaniesVO: Codable {
     var logoPath: String?
     var name: String?
     var originCountry: String?
-    
-//    "production_companies": [
-    //         {
-    //             "id": 16569,
-    //             "logo_path": null,
-    //             "name": "Películas Pendelton",
-    //             "origin_country": "ES"
-    //         },
 }

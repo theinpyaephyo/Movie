@@ -15,7 +15,7 @@ class RealmHelper {
     
     static let shared = RealmHelper()
     
-    let realm = try! Realm(configuration: Realm.Configuration(schemaVersion: 4))
+    let realm = try! Realm(configuration: Realm.Configuration(schemaVersion: 1))
     
     func deleteMovies() {
         let movies = realm.objects(MovieVO.self)

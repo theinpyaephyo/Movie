@@ -31,4 +31,6 @@ class SharedConstants {
         static let GET_UPCOMING_LIST = "movie/upcoming"
     }
     
+    static let KEY_NOW_PLAYING_PAGE = "KEY_NOW_PLAYING_PAGE"
+    
 }

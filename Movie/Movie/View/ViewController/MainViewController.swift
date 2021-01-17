@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         let selectedIndex = UserDefaults.standard.integer(forKey: "SC_Seletect_Tab")
         scMovieTab.selectedSegmentIndex = selectedIndex
         
@@ -85,20 +85,36 @@ class MainViewController: UIViewController {
     
     private func loadInitialData() {
         
-        UserDataModel.shared.getNowPlayingMovieList(success: {
+        if let nowPlayingVO = RealmHelper.shared.realm.objects(NowPlayingVO.self).first {
+        
+            page = UserDefaults.standard.integer(forKey: SharedConstants.KEY_NOW_PLAYING_PAGE)
             
-            let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
-            nowPlayingVO?.results.forEach({ (movieVO) in
+            nowPlayingVO.results.forEach({ (movieVO) in
                 self.movieList.append(movieVO)
             })
-        
-            print("Realm is located at:", RealmHelper.shared.realm.configuration.fileURL!)
             
             self.movieListTableView.reloadData()
             
-        }) { (err) in
-            print(err)
+        } else {
+            
+            UserDataModel.shared.getNowPlayingMovieList(success: {
+                
+                self.movieList.removeAll()
+                let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
+                nowPlayingVO?.results.forEach({ (movieVO) in
+                    self.movieList.append(movieVO)
+                })
+            
+                print("Realm is located at:", RealmHelper.shared.realm.configuration.fileURL!)
+                
+                self.movieListTableView.reloadData()
+                
+            }) { (err) in
+                print(err)
+            }
+            
         }
+        
     }
     
     private func loadUpcomingMovieData() {
@@ -114,8 +130,11 @@ class MainViewController: UIViewController {
     }
     
     private func loadMoreData(page: Int) {
+        
         showTableViewBottomIndicator(tableView: movieListTableView)
         UserDataModel.shared.getNowPlayingMovieList(page: page, success: {
+            
+            UserDefaults.standard.set(page, forKey: SharedConstants.KEY_NOW_PLAYING_PAGE)
             
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             
