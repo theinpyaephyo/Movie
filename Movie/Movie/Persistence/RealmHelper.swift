@@ -30,8 +30,9 @@ class RealmHelper {
     func insertNowPlayingMovie(nowPlaying: NowPlayingVO) {
         if let nowPlayingVOs = realm.objects(NowPlayingVO.self).first {
             try! realm.write {
-                nowPlayingVOs.results = nowPlaying.results
+                nowPlayingVOs.results.append(objectsIn: nowPlaying.results)
             }
+            print(nowPlayingVOs.results.count)
         } else {
             try! realm.write {
                 realm.add(nowPlaying)

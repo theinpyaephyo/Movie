@@ -103,7 +103,6 @@ class MainViewController: UIViewController {
     
     private func loadUpcomingMovieData() {
         
-        
         UserDataModel.shared.getUpcomingMovieList(success: {
             
             self.upcomingMovieList = UserDataModel.shared.upComingVO.results
@@ -115,17 +114,22 @@ class MainViewController: UIViewController {
     }
     
     private func loadMoreData(page: Int) {
-//        showTableViewBottomIndicator(tableView: movieListTableView)
-//        UserDataModel.shared.getNowPlayingMovieList(page: page, success: {
-//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
-//
-//            self.movieList.append(objectsIn: UserDataModel.shared.nowPlayingVO.results)
-//            self.movieListTableView.reloadData()
-//        }) { (err) in
-//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
-//            print(err)
-//        }
-//
+        showTableViewBottomIndicator(tableView: movieListTableView)
+        UserDataModel.shared.getNowPlayingMovieList(page: page, success: {
+            
+            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+            
+            let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
+            self.movieList.removeAll()
+            nowPlayingVO?.results.forEach({ (movieVO) in
+                self.movieList.append(movieVO)
+            })
+            self.movieListTableView.reloadData()
+            
+        }) { (err) in
+            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+            print(err)
+        }
     }
     
     private func upComingLoadMoreData(page: Int) {
