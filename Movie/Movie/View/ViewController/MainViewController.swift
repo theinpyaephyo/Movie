@@ -6,6 +6,13 @@
 //  Copyright © 2020 THEIN PYAE PHYO. All rights reserved.
 //
 
+// Persistence -> App with local database
+//1. UserDeafults => value/ key
+//2. Property List => value/ key
+//3. Core Data => Database Level
+//4. Realm => Third party Database Level
+//5. SQLite => Light weight database
+
 
 import UIKit
 import RealmSwift
@@ -14,7 +21,8 @@ class MainViewController: UIViewController {
     
     static let identifier = "MainViewController"
     
-    private var movieList = List<MovieVO>()
+    private var nowPlayingMovieList = List<MovieVO>()
+    
     //upcoming
     private var upcomingMovieList = List<MovieVO>()
     
@@ -88,9 +96,9 @@ class MainViewController: UIViewController {
         if let nowPlayingVO = RealmHelper.shared.realm.objects(NowPlayingVO.self).first {
         
             page = UserDefaults.standard.integer(forKey: SharedConstants.KEY_NOW_PLAYING_PAGE)
-            
+
             nowPlayingVO.results.forEach({ (movieVO) in
-                self.movieList.append(movieVO)
+                self.nowPlayingMovieList.append(movieVO)
             })
             
             self.movieListTableView.reloadData()
@@ -99,10 +107,9 @@ class MainViewController: UIViewController {
             
             UserDataModel.shared.getNowPlayingMovieList(success: {
                 
-                self.movieList.removeAll()
                 let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
                 nowPlayingVO?.results.forEach({ (movieVO) in
-                    self.movieList.append(movieVO)
+                    self.nowPlayingMovieList.append(movieVO)
                 })
             
                 print("Realm is located at:", RealmHelper.shared.realm.configuration.fileURL!)
@@ -119,8 +126,9 @@ class MainViewController: UIViewController {
     
     private func loadUpcomingMovieData() {
         
+        // TODO
         UserDataModel.shared.getUpcomingMovieList(success: {
-            
+            // TODO
             self.upcomingMovieList = UserDataModel.shared.upComingVO.results
             self.movieListTableView.reloadData()
             
@@ -133,15 +141,15 @@ class MainViewController: UIViewController {
         
         showTableViewBottomIndicator(tableView: movieListTableView)
         UserDataModel.shared.getNowPlayingMovieList(page: page, success: {
-            
+        
             UserDefaults.standard.set(page, forKey: SharedConstants.KEY_NOW_PLAYING_PAGE)
             
             self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
             
             let nowPlayingVO = RealmHelper.shared.retrieveNowPlayingMovie().first
-            self.movieList.removeAll()
+            self.nowPlayingMovieList.removeAll()
             nowPlayingVO?.results.forEach({ (movieVO) in
-                self.movieList.append(movieVO)
+                self.nowPlayingMovieList.append(movieVO)
             })
             self.movieListTableView.reloadData()
             
@@ -182,7 +190,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if selectedTab == 0 {
-            return movieList.count
+            return nowPlayingMovieList.count
         } else {
             return upcomingMovieList.count
         }
@@ -192,9 +200,9 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as! MovieListTableViewCell
         if selectedTab == 0 {
-            cell.movie = movieList[indexPath.row]
+            cell.movie = nowPlayingMovieList[indexPath.row]
             cell.delegate = self
-            cell.index = movieList[indexPath.row].id
+            cell.index = nowPlayingMovieList[indexPath.row].id
             return cell
         } else {
             cell.movie = upcomingMovieList[indexPath.row]
@@ -215,7 +223,7 @@ extension MainViewController: UITableViewDelegate {
             let vc = storyboard.instantiateViewController(identifier: DetailViewController.identifier) as DetailViewController
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
-            vc.movieID = movieList[indexPath.row].id
+            vc.movieID = nowPlayingMovieList[indexPath.row].id
 //            vc.favouriteState = UserDataModel.shared.favouriteStateList[indexPath.row]
             vc.tableViewCellIndex = indexPath.row
             vc.segmentedControlIndex = selectedTab

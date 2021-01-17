@@ -17,12 +17,17 @@ class RealmHelper {
     
     let realm = try! Realm(configuration: Realm.Configuration(schemaVersion: 1))
     
-    func deleteMovies() {
-        let movies = realm.objects(MovieVO.self)
-        try! realm.write {
-            realm.delete(movies)
-        }
-    }
+    
+//    CRUD
+    //create -> insert/ add
+    //1. object ->
+    //2. add
+    //read -> retrieve
+    //1. single (id) / all => Type
+    //
+    //update -> favourite state
+    //delete ->
+    
     
     // MARK: - NowPlayingVO
     
@@ -56,25 +61,25 @@ class RealmHelper {
     //MARK: - FavouriteStateVO
     
     // create
-    func insertFavouriteState(favouriteState: FavouriteStateVO) {
+    func insertFavouriteState(favouriteState: NowPlayingFavouriteStateVO) {
         try! realm.write {
             realm.add(favouriteState)
         }
     }
     
     // read
-    func retrieveFavouriteState(movieId: Int) -> FavouriteStateVO? {
-        return realm.objects(FavouriteStateVO.self).filter("movieId == %@", movieId).first
+    func retrieveFavouriteState(movieId: Int) -> NowPlayingFavouriteStateVO? {
+        return realm.objects(NowPlayingFavouriteStateVO.self).filter("movieId == %@", movieId).first
     }
     
     // read all
-    func retrieveFavouriteState() -> Results<FavouriteStateVO> {
-        return realm.objects(FavouriteStateVO.self)
+    func retrieveFavouriteState() -> Results<NowPlayingFavouriteStateVO> {
+        return realm.objects(NowPlayingFavouriteStateVO.self)
     }
 
     // update
     func updateFavouriteStae(movieId: Int, favouriteState: Bool) {
-        guard let favouriteVO = realm.objects(FavouriteStateVO.self).filter("movieId == %@", movieId).first else { return }
+        guard let favouriteVO = realm.objects(NowPlayingFavouriteStateVO.self).filter("movieId == %@", movieId).first else { return }
         try! realm.write {
             favouriteVO.state = favouriteState
         }
@@ -82,13 +87,15 @@ class RealmHelper {
     
     // delete
     func deleteFavouriteState() {
-        let favouriteStates = realm.objects(FavouriteStateVO.self)
+        let favouriteStates = realm.objects(NowPlayingFavouriteStateVO.self)
         try! realm.write {
             realm.delete(favouriteStates)
         }
     }
     
     //MARK: - UpcomingMovieVO
+    
+    // TODO
     
     // create
     func insertUpcomingMovie(upcoming: UpcomingVO) {

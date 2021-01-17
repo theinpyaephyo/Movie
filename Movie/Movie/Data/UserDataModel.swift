@@ -41,12 +41,16 @@ final class UserDataModel {
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+                // 20
                 let nowPlayingVO = try self.decoder.decode(NowPlayingVO.self, from: Data(data.rawData()))
                                 
+                // insert now playing
                 RealmHelper.shared.insertNowPlayingMovie(nowPlaying: nowPlayingVO)
+                
+                // insert favourite state
                 if RealmHelper.shared.retrieveFavouriteState().count != RealmHelper.shared.retrieveNowPlayingMovie().first?.results.count {
                     nowPlayingVO.results.forEach { (movieVO) in
-                        let favouriteStateVO = FavouriteStateVO()
+                        let favouriteStateVO = NowPlayingFavouriteStateVO()
                         favouriteStateVO.movieId = movieVO.id
                         favouriteStateVO.state = false
                         RealmHelper.shared.insertFavouriteState(favouriteState: favouriteStateVO)
@@ -80,7 +84,7 @@ final class UserDataModel {
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
                 self.upComingVO = try self.decoder.decode(UpcomingVO.self, from: Data(data.rawData()))
-                
+                // TODO
                 //favourite state list
                 self.upComingVO.results.forEach { (_) in
                     self.upComingFavouriteStateList.append(false)

@@ -31,7 +31,7 @@ class MovieVO: Object, Codable {
     @objc dynamic var voteCount = 0
 }
 
-class FavouriteStateVO: Object {
+class NowPlayingFavouriteStateVO: Object {
     @objc dynamic var movieId: Int = 0
     @objc dynamic var state: Bool = false
 }
@@ -39,6 +39,11 @@ class FavouriteStateVO: Object {
 class UpcomingVO: Object, Codable {
     @objc dynamic var totalPages = 0
     var results = List<MovieVO>()
+}
+
+class UpcomingFavouriteStateVO: Object {
+    @objc dynamic var movieId: Int = 0
+    @objc dynamic var state: Bool = false
 }
 
     
