@@ -21,8 +21,6 @@ final class UserDataModel {
         
     var upComingFavouriteStateList: [Bool] = []
         
-    var upComingVO = UpcomingVO()
-    
     var movieDetailVO = MovieDetailVO()
         
     func getNowPlayingMovieList(page: Int = 1,
@@ -83,12 +81,16 @@ final class UserDataModel {
             
             do {
                 self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-                self.upComingVO = try self.decoder.decode(UpcomingVO.self, from: Data(data.rawData()))
-                // TODO
-                //favourite state list
-                self.upComingVO.results.forEach { (_) in
-                    self.upComingFavouriteStateList.append(false)
-                }
+
+                let upComingVO = try self.decoder.decode(UpcomingVO.self, from: Data(data.rawData()))
+                
+                RealmHelper.shared.insertUpcomingMovie(upcoming: upComingVO)
+                
+//                //favourite state list
+//                self.upComingVO.results.forEach { (_) in
+//                    self.upComingFavouriteStateList.append(false)
+//                }
+
                 
                 success()
             } catch let err {

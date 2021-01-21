@@ -128,8 +128,16 @@ class MainViewController: UIViewController {
         
         // TODO
         UserDataModel.shared.getUpcomingMovieList(success: {
-            // TODO
-            self.upcomingMovieList = UserDataModel.shared.upComingVO.results
+
+            
+            if let upComingVOs = RealmHelper.shared.realm.objects(UpcomingVO.self).first {
+                
+                upComingVOs.results.forEach { (movieVO) in
+                    self.upcomingMovieList.append(movieVO)
+                    
+                }
+            }
+
             self.movieListTableView.reloadData()
             
         }) { (err) in
@@ -159,19 +167,19 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func upComingLoadMoreData(page: Int) {
-        showTableViewBottomIndicator(tableView: movieListTableView)
-        UserDataModel.shared.getUpcomingMovieList(page: page, success: {
-            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
-            
-            self.upcomingMovieList.append(objectsIn: UserDataModel.shared.upComingVO.results)
-            self.movieListTableView.reloadData()
-        }) { (err) in
-            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
-            print(err)
-        }
-        
-    }
+//    private func upComingLoadMoreData(page: Int) {
+//        showTableViewBottomIndicator(tableView: movieListTableView)
+//        UserDataModel.shared.getUpcomingMovieList(page: page, success: {
+//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+//
+////            self.upcomingMovieList.append(objectsIn: UserDataModel.shared.upComingVO.results)
+//            self.movieListTableView.reloadData()
+//        }) { (err) in
+//            self.hideTableViewBottomIndicator(tableView: self.movieListTableView)
+//            print(err)
+//        }
+//
+//    }
     
     private func showTableViewBottomIndicator(tableView: UITableView) {
         activityIndicator.startAnimating()
@@ -250,9 +258,9 @@ extension MainViewController: UITableViewDelegate {
                     loadMoreData(page: page)
                 }
             } else {
-                if upcomingPage <= (UserDataModel.shared.upComingVO.totalPages) {
+                if upcomingPage <= (RealmHelper.shared.retrieveUpcomingMovie().first?.totalPages ?? 0) {
                     upcomingPage += 1
-                    upComingLoadMoreData(page: upcomingPage)
+//                    upComingLoadMoreData(page: upcomingPage)
                 }
             }
         }

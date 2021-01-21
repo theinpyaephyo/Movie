@@ -32,6 +32,9 @@ class SharedConstants {
     }
     
     static let KEY_NOW_PLAYING_PAGE = "KEY_NOW_PLAYING_PAGE"
+
     static let KEY_UPCOMING_PAGE = "KEY_UPCOMING_PAGE"
+
+
     
 }
